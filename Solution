@@ -5,7 +5,4 @@ from sales s
 join menu m 
 on s.product_id =m.product_id
 Group by s.customer_id;
- OUTPUT
-A	76
-B	74
-C	36
+ 
