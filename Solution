@@ -6,3 +6,8 @@ join menu m
 on s.product_id =m.product_id
 Group by s.customer_id;
  
+ How many days has each customer visited the restaurant?
+Query:
+ Select s.Customer_id, Count(order_date)as Total_Visits from sales s
+ Group by s.customer_id;
+   
