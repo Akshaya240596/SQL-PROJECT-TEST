@@ -1,0 +1,11 @@
+What is the total amount each customer spent at the restaurant?
+Query:
+Select s.Customer_id, sum(m.price) as Total_Price
+from sales s
+join menu m 
+on s.product_id =m.product_id
+Group by s.customer_id;
+ OUTPUT
+A	76
+B	74
+C	36
