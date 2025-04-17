@@ -1,20 +1,56 @@
-What is the total amount each customer spent at the restaurant?
+1.What is the total amount each customer spent at the restaurant?
 Query:
-
 Select s.Customer_id, sum(m.price) as Total_Price
 from sales s
 join menu m 
 on s.product_id =m.product_id
 Group by s.customer_id;
 
-How many days has each customer visited the restaurant?
+2.How many days has each customer visited the restaurant?
 Query:
-
 Select s.Customer_id, Count(order_date)as Total_Visits from sales s
 Group by s.customer_id;
 
-What was the first item from the menu purchased by each customer?
+3.What was the first item from the menu purchased by each customer?
 Query:
 
 
+4.What is the most purchased item on the menu and how many times was it purchased by all customers?
+Query:
+Select menu.product_name as Most_Purchased_Item,s.product_id, Count(S.Product_id) as Order_Count from sales s
+Join menu on S.product_id=menu.product_id
+Group by S.Product_id,menu.product_name
+Order by S.Product_id Desc
+Limit 1;
+
+5.Which item was the most popular for each customer?
+Query:
+
+
+
+8.What is the total items and amount spent for each member before they became a member?
+Query:
+
+Select S.customer_id, Count(S.product_id) , Sum(m.price)
+from Sales s
+Join Menu m
+on
+S.Product_id=m.Product_id
+join members on S. customer_id=members.customer_id
+where s.order_date < members.join_date
+Group by s.Customer_id
+Order by s.Customer_id;
+
+9.If each $1 spent equates to 10 points and sushi has a 2x points multiplier - how many points would each customer have?
+Query:
+
+with points_table  as ( Select m.Product_id, m.product_name, m.price,
+Case when m.product_name ='sushi' then m.price*20
+else m.price * 10
+end as Points
+from menu m)
+
+Select s.customer_id, Sum(points) as Total_points from sales s
+join points_table on s.product_id= points_table.product_id
+group by S.customer_id;
    
